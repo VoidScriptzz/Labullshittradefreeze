@@ -8,7 +8,7 @@ gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
 local main = Instance.new("Frame")
-main.Size = UDim2.new(0, 280, 0, 270)
+main.Size = UDim2.new(0, 280, 0, 300)
 main.Position = UDim2.new(0.7, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(8, 18, 45)
 main.BorderSizePixel = 0
@@ -148,7 +148,7 @@ end)
 
 local ogButton = Instance.new("TextButton")
 ogButton.Size = UDim2.new(0.9, 0, 0, 35)
-ogButton.Position = UDim2.new(0.05, 0, 0, 185)
+ogButton.Position = UDim2.new(0.05, 0, 0, 220)
 ogButton.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
 ogButton.BorderSizePixel = 0
 ogButton.Text = "OG Lucky Block"
